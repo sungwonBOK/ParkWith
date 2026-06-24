@@ -1,0 +1,7 @@
+interface:
+  display_name: "Karpathy Behavioral Guidelines"
+  short_description: "코딩 실수를 줄이는 LLM 행동 규칙"
+  default_prompt: "Use $karpathy-behavioral-guidelines when writing, reviewing, or refactoring code with careful assumptions, surgical changes, and verifiable success criteria."
+
+policy:
+  allow_implicit_invocation: true

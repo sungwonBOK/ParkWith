@@ -1,0 +1,4 @@
+interface:
+  display_name: "ParkWith Location Safety"
+  short_description: "위치·배터리·개인정보 작업 규칙"
+  default_prompt: "Use $playmate-location-safety when changing ParkWith location sharing, battery behavior, privacy-sensitive flows, or visit-session data retention."

@@ -1,0 +1,90 @@
+openapi: 3.0.3
+info:
+  title: ParkWith API
+  version: 0.1.0
+paths:
+  /venues:
+    get:
+      summary: List venues
+      responses:
+        "200":
+          description: Venue list response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VenueListResponse"
+  /trip-rooms:
+    post:
+      summary: Create a trip room
+      responses:
+        "201":
+          description: Trip room created
+  /trip-rooms/{tripRoomId}/location:
+    post:
+      summary: Update current location snapshot
+      parameters:
+        - name: tripRoomId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Location snapshot updated
+components:
+  schemas:
+    ApiError:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+    Venue:
+      type: object
+      required:
+        - id
+        - name
+        - category
+        - region
+        - description
+      properties:
+        id:
+          type: string
+          example: caribbean-bay
+        name:
+          type: string
+          example: Caribbean Bay
+        category:
+          type: string
+          enum:
+            - water_park
+            - amusement_park
+        region:
+          type: string
+          example: Yongin
+        description:
+          type: string
+          example: Large water park next to Everland.
+    VenueListResponse:
+      type: object
+      required:
+        - success
+        - data
+        - error
+      properties:
+        success:
+          type: boolean
+          enum:
+            - true
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Venue"
+        error:
+          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/ApiError"

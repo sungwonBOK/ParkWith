@@ -1,0 +1,60 @@
+import { Venue } from './entities/venue.entity';
+
+export const venueSeedData: Venue[] = [
+  {
+    id: 'caribbean-bay',
+    name: 'Caribbean Bay',
+    category: 'water_park',
+    region: 'Yongin',
+    description: 'Large water park next to Everland.',
+  },
+  {
+    id: 'ocean-world',
+    name: 'Ocean World',
+    category: 'water_park',
+    region: 'Hongcheon',
+    description: 'Water park resort for summer visits.',
+  },
+  {
+    id: 'lotte-water-park',
+    name: 'Lotte Water Park',
+    category: 'water_park',
+    region: 'Gimhae',
+    description: 'Indoor and outdoor water park operated by Lotte.',
+  },
+  {
+    id: 'woongjin-play-doci-waterdoci',
+    name: 'Woongjin Play Doci Waterdoci',
+    category: 'water_park',
+    region: 'Bucheon',
+    description: 'Urban indoor water park and leisure complex.',
+  },
+  {
+    id: 'everland',
+    name: 'Everland',
+    category: 'amusement_park',
+    region: 'Yongin',
+    description: 'Large amusement park with rides, shows, and seasonal events.',
+  },
+  {
+    id: 'lotte-world-adventure-seoul',
+    name: 'Lotte World Adventure Seoul',
+    category: 'amusement_park',
+    region: 'Seoul',
+    description: 'Indoor and outdoor amusement park in Jamsil.',
+  },
+  {
+    id: 'lotte-world-adventure-busan',
+    name: 'Lotte World Adventure Busan',
+    category: 'amusement_park',
+    region: 'Busan',
+    description: 'Outdoor theme park in Busan.',
+  },
+  {
+    id: 'gyeongju-world',
+    name: 'Gyeongju World',
+    category: 'amusement_park',
+    region: 'Gyeongju',
+    description: 'Regional amusement park known for thrill rides.',
+  },
+];
