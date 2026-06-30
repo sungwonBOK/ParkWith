@@ -12,6 +12,7 @@ describe('VenuesService', () => {
       expect.objectContaining({
         id: 'caribbean-bay',
         name: 'Caribbean Bay',
+        nameKo: '캐리비안 베이',
         category: 'water_park',
       }),
     );

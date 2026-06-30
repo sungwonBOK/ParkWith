@@ -4,6 +4,7 @@ export const venueSeedData: Venue[] = [
   {
     id: 'caribbean-bay',
     name: 'Caribbean Bay',
+    nameKo: '캐리비안 베이',
     category: 'water_park',
     region: 'Yongin',
     description: 'Large water park next to Everland.',
@@ -11,6 +12,7 @@ export const venueSeedData: Venue[] = [
   {
     id: 'ocean-world',
     name: 'Ocean World',
+    nameKo: '오션월드',
     category: 'water_park',
     region: 'Hongcheon',
     description: 'Water park resort for summer visits.',
@@ -18,6 +20,7 @@ export const venueSeedData: Venue[] = [
   {
     id: 'lotte-water-park',
     name: 'Lotte Water Park',
+    nameKo: '롯데워터파크',
     category: 'water_park',
     region: 'Gimhae',
     description: 'Indoor and outdoor water park operated by Lotte.',
@@ -25,6 +28,7 @@ export const venueSeedData: Venue[] = [
   {
     id: 'woongjin-play-doci-waterdoci',
     name: 'Woongjin Play Doci Waterdoci',
+    nameKo: '웅진플레이도시 워터도시',
     category: 'water_park',
     region: 'Bucheon',
     description: 'Urban indoor water park and leisure complex.',
@@ -32,6 +36,7 @@ export const venueSeedData: Venue[] = [
   {
     id: 'everland',
     name: 'Everland',
+    nameKo: '에버랜드',
     category: 'amusement_park',
     region: 'Yongin',
     description: 'Large amusement park with rides, shows, and seasonal events.',
@@ -39,6 +44,7 @@ export const venueSeedData: Venue[] = [
   {
     id: 'lotte-world-adventure-seoul',
     name: 'Lotte World Adventure Seoul',
+    nameKo: '롯데월드 어드벤처 서울',
     category: 'amusement_park',
     region: 'Seoul',
     description: 'Indoor and outdoor amusement park in Jamsil.',
@@ -46,6 +52,7 @@ export const venueSeedData: Venue[] = [
   {
     id: 'lotte-world-adventure-busan',
     name: 'Lotte World Adventure Busan',
+    nameKo: '롯데월드 어드벤처 부산',
     category: 'amusement_park',
     region: 'Busan',
     description: 'Outdoor theme park in Busan.',
@@ -53,6 +60,7 @@ export const venueSeedData: Venue[] = [
   {
     id: 'gyeongju-world',
     name: 'Gyeongju World',
+    nameKo: '경주월드',
     category: 'amusement_park',
     region: 'Gyeongju',
     description: 'Regional amusement park known for thrill rides.',

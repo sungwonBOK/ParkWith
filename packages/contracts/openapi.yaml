@@ -48,6 +48,7 @@ components:
       required:
         - id
         - name
+        - nameKo
         - category
         - region
         - description
@@ -58,6 +59,9 @@ components:
         name:
           type: string
           example: Caribbean Bay
+        nameKo:
+          type: string
+          example: 캐리비안 베이
         category:
           type: string
           enum:
