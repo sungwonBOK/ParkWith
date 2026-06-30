@@ -10,4 +10,8 @@ export class VenuesService {
   listVenues(): Venue[] {
     return this.venuesRepository.findAll();
   }
+
+  findVenueById(venueId: string): Venue | null {
+    return this.venuesRepository.findById(venueId);
+  }
 }

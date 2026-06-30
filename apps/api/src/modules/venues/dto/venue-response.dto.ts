@@ -14,3 +14,20 @@ export interface VenueListResponseDto {
   data: VenueDto[];
   error: null;
 }
+
+export interface ApiErrorDto {
+  code: string;
+  message: string;
+}
+
+export type VenueDetailResponseDto =
+  | {
+      success: true;
+      data: VenueDto;
+      error: null;
+    }
+  | {
+      success: false;
+      data: null;
+      error: ApiErrorDto;
+    };

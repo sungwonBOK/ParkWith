@@ -13,6 +13,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VenueListResponse"
+  /venues/{venueId}:
+    get:
+      summary: Get venue detail
+      parameters:
+        - name: venueId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Venue detail response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VenueDetailResponse"
   /trip-rooms:
     post:
       summary: Create a trip room
@@ -92,3 +108,37 @@ components:
           nullable: true
           allOf:
             - $ref: "#/components/schemas/ApiError"
+    VenueDetailResponse:
+      oneOf:
+        - type: object
+          required:
+            - success
+            - data
+            - error
+          properties:
+            success:
+              type: boolean
+              enum:
+                - true
+            data:
+              $ref: "#/components/schemas/Venue"
+            error:
+              nullable: true
+              allOf:
+                - $ref: "#/components/schemas/ApiError"
+        - type: object
+          required:
+            - success
+            - data
+            - error
+          properties:
+            success:
+              type: boolean
+              enum:
+                - false
+            data:
+              nullable: true
+              allOf:
+                - $ref: "#/components/schemas/Venue"
+            error:
+              $ref: "#/components/schemas/ApiError"

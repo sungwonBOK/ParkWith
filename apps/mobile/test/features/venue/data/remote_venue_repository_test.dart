@@ -10,7 +10,7 @@ void main() {
         {
           'id': 'everland',
           'name': 'Everland',
-          'nameKo': '에버랜드',
+          'nameKo': 'Everland',
           'category': 'amusement_park',
           'region': 'Yongin',
           'description': 'Large amusement park.',
@@ -24,7 +24,45 @@ void main() {
 
     expect(apiClient.requestedPaths, ['/venues']);
     expect(venues.single.name, 'Everland');
-    expect(venues.single.nameKo, '에버랜드');
+    expect(venues.single.nameKo, 'Everland');
+  });
+
+  test('loads a venue detail from the venues API endpoint', () async {
+    final apiClient = _FakeApiClient({
+      'success': true,
+      'data': {
+        'id': 'everland',
+        'name': 'Everland',
+        'nameKo': 'Everland',
+        'category': 'amusement_park',
+        'region': 'Yongin',
+        'description': 'Large amusement park.',
+      },
+      'error': null,
+    });
+    final repository = RemoteVenueRepository(apiClient);
+
+    final venue = await repository.getVenueById('everland');
+
+    expect(apiClient.requestedPaths, ['/venues/everland']);
+    expect(venue?.name, 'Everland');
+  });
+
+  test('returns null when the venue detail API returns not found', () async {
+    final apiClient = _FakeApiClient({
+      'success': false,
+      'data': null,
+      'error': {
+        'code': 'VENUE_NOT_FOUND',
+        'message': 'Venue could not be found.',
+      },
+    });
+    final repository = RemoteVenueRepository(apiClient);
+
+    final venue = await repository.getVenueById('unknown-venue');
+
+    expect(apiClient.requestedPaths, ['/venues/unknown-venue']);
+    expect(venue, isNull);
   });
 }
 

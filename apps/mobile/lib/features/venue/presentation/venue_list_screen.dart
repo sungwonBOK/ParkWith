@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../domain/use_cases/get_venue.dart';
 import '../domain/use_cases/list_venues.dart';
 import '../domain/venue.dart';
+import 'venue_detail_screen.dart';
 
 class VenueListScreen extends StatefulWidget {
   const VenueListScreen({
     required this.listVenues,
+    required this.getVenue,
     super.key,
   });
 
   final ListVenues listVenues;
+  final GetVenue getVenue;
 
   @override
   State<VenueListScreen> createState() => _VenueListScreenState();
@@ -56,6 +60,16 @@ class _VenueListScreenState extends State<VenueListScreen> {
               return ListTile(
                 title: Text(venue.name),
                 subtitle: Text('${venue.categoryLabel} - ${venue.region}'),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => VenueDetailScreen(
+                        venueId: venue.id,
+                        getVenue: widget.getVenue,
+                      ),
+                    ),
+                  );
+                },
               );
             },
           );

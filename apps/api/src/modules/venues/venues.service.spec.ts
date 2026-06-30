@@ -17,4 +17,25 @@ describe('VenuesService', () => {
       }),
     );
   });
+
+  it('finds a venue by id', () => {
+    const service = new VenuesService(new VenuesRepository());
+
+    const venue = service.findVenueById('everland');
+
+    expect(venue).toEqual(
+      expect.objectContaining({
+        id: 'everland',
+        name: 'Everland',
+      }),
+    );
+  });
+
+  it('returns null for an unknown venue id', () => {
+    const service = new VenuesService(new VenuesRepository());
+
+    const venue = service.findVenueById('unknown-venue');
+
+    expect(venue).toBeNull();
+  });
 });

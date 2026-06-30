@@ -8,4 +8,8 @@ export class VenuesRepository {
   findAll(): Venue[] {
     return [...venueSeedData];
   }
+
+  findById(venueId: string): Venue | null {
+    return venueSeedData.find((venue) => venue.id === venueId) ?? null;
+  }
 }
