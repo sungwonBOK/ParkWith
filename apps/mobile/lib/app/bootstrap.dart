@@ -3,5 +3,5 @@ import 'package:flutter/widgets.dart';
 import 'app.dart';
 
 void bootstrap() {
-  runApp(const ParkWithApp());
+  runApp(ParkWithApp());
 }

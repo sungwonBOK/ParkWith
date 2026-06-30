@@ -1,11 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../features/venue/data/seed_venue_repository.dart';
+import '../core/api/api_client.dart';
+import '../core/config/api_config.dart';
+import '../features/venue/data/remote_venue_repository.dart';
 import '../features/venue/domain/use_cases/list_venues.dart';
+import '../features/venue/domain/venue_repository.dart';
 import '../features/venue/presentation/venue_list_screen.dart';
 
 class ParkWithApp extends StatelessWidget {
-  const ParkWithApp({super.key});
+  ParkWithApp({
+    VenueRepository? venueRepository,
+    super.key,
+  }) : venueRepository = venueRepository ??
+            RemoteVenueRepository(
+              HttpApiClient(baseUrl: ApiConfig.fromEnvironment().baseUri),
+            );
+
+  final VenueRepository venueRepository;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +26,9 @@ class ParkWithApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF147C72)),
         useMaterial3: true,
       ),
-      home: const VenueListScreen(
+      home: VenueListScreen(
         listVenues: ListVenues(
-          SeedVenueRepository(),
+          venueRepository,
         ),
       ),
     );
