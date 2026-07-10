@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../deal/domain/use_cases/list_venue_deals.dart';
 import '../domain/use_cases/get_venue.dart';
 import '../domain/use_cases/list_venues.dart';
 import '../domain/venue.dart';
@@ -9,11 +10,13 @@ class VenueListScreen extends StatefulWidget {
   const VenueListScreen({
     required this.listVenues,
     required this.getVenue,
+    required this.listVenueDeals,
     super.key,
   });
 
   final ListVenues listVenues;
   final GetVenue getVenue;
+  final ListVenueDeals listVenueDeals;
 
   @override
   State<VenueListScreen> createState() => _VenueListScreenState();
@@ -66,6 +69,7 @@ class _VenueListScreenState extends State<VenueListScreen> {
                       builder: (context) => VenueDetailScreen(
                         venueId: venue.id,
                         getVenue: widget.getVenue,
+                        listVenueDeals: widget.listVenueDeals,
                       ),
                     ),
                   );

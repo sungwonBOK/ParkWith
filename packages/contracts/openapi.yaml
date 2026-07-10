@@ -29,6 +29,22 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/VenueDetailResponse"
+  /venues/{venueId}/deals:
+    get:
+      summary: List venue deals
+      parameters:
+        - name: venueId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Venue deal list response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DealListResponse"
   /trip-rooms:
     post:
       summary: Create a trip room
@@ -104,6 +120,59 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Venue"
+        error:
+          nullable: true
+          allOf:
+            - $ref: "#/components/schemas/ApiError"
+    Deal:
+      type: object
+      required:
+        - id
+        - venueId
+        - title
+        - summary
+        - discountText
+        - sourceUrl
+        - lastUpdatedAt
+      properties:
+        id:
+          type: string
+          example: everland-afternoon-pass
+        venueId:
+          type: string
+          example: everland
+        title:
+          type: string
+          example: Afternoon pass discount
+        summary:
+          type: string
+          example: Reduced admission after afternoon entry hours.
+        discountText:
+          type: string
+          example: Up to 35% off selected afternoon passes
+        sourceUrl:
+          type: string
+          format: uri
+          example: https://www.everland.com/
+        lastUpdatedAt:
+          type: string
+          format: date
+          example: "2026-06-30"
+    DealListResponse:
+      type: object
+      required:
+        - success
+        - data
+        - error
+      properties:
+        success:
+          type: boolean
+          enum:
+            - true
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Deal"
         error:
           nullable: true
           allOf:

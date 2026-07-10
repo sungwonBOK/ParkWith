@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:parkwith_mobile/features/deal/domain/deal.dart';
+import 'package:parkwith_mobile/features/deal/domain/deal_repository.dart';
+import 'package:parkwith_mobile/features/deal/domain/use_cases/list_venue_deals.dart';
 import 'package:parkwith_mobile/features/venue/domain/use_cases/get_venue.dart';
 import 'package:parkwith_mobile/features/venue/domain/use_cases/list_venues.dart';
 import 'package:parkwith_mobile/features/venue/domain/venue.dart';
@@ -16,6 +19,7 @@ void main() {
         home: VenueListScreen(
           listVenues: ListVenues(repository),
           getVenue: GetVenue(repository),
+          listVenueDeals: ListVenueDeals(_FakeDealRepository()),
         ),
       ),
     );
@@ -36,6 +40,7 @@ void main() {
         home: VenueListScreen(
           listVenues: ListVenues(repository),
           getVenue: GetVenue(repository),
+          listVenueDeals: ListVenueDeals(_FakeDealRepository()),
         ),
       ),
     );
@@ -57,6 +62,7 @@ void main() {
         home: VenueDetailScreen(
           venueId: 'unknown-venue',
           getVenue: GetVenue(_MissingVenueRepository()),
+          listVenueDeals: ListVenueDeals(_FakeDealRepository()),
         ),
       ),
     );
@@ -64,6 +70,27 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Venue could not be found.'), findsOneWidget);
+  });
+
+  testWidgets('renders venue deals on the venue detail screen', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: VenueDetailScreen(
+          venueId: 'everland',
+          getVenue: GetVenue(_FakeVenueRepository()),
+          listVenueDeals: ListVenueDeals(_FakeDealRepository()),
+        ),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+
+    expect(find.text('Afternoon pass discount'), findsOneWidget);
+    expect(
+      find.text('Up to 35% off selected afternoon passes'),
+      findsOneWidget,
+    );
+    expect(find.text('Updated 2026-06-30'), findsOneWidget);
   });
 }
 
@@ -115,5 +142,24 @@ class _MissingVenueRepository implements VenueRepository {
   @override
   Future<Venue?> getVenueById(String venueId) async {
     return null;
+  }
+}
+
+class _FakeDealRepository implements DealRepository {
+  const _FakeDealRepository();
+
+  @override
+  Future<List<Deal>> listDealsForVenue(String venueId) async {
+    return [
+      Deal(
+        id: '$venueId-afternoon-pass',
+        venueId: venueId,
+        title: 'Afternoon pass discount',
+        summary: 'Reduced admission after afternoon entry hours.',
+        discountText: 'Up to 35% off selected afternoon passes',
+        sourceUrl: 'https://www.everland.com/',
+        lastUpdatedAt: DateTime(2026, 6, 30),
+      ),
+    ];
   }
 }

@@ -15,6 +15,22 @@ export interface VenueListResponseDto {
   error: null;
 }
 
+export interface DealDto {
+  id: string;
+  venueId: string;
+  title: string;
+  summary: string;
+  discountText: string;
+  sourceUrl: string;
+  lastUpdatedAt: string;
+}
+
+export interface DealListResponseDto {
+  success: true;
+  data: DealDto[];
+  error: null;
+}
+
 export interface ApiErrorDto {
   code: string;
   message: string;
