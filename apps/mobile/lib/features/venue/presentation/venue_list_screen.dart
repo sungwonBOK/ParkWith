@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../cost_calculator/presentation/cost_calculator_screen.dart';
 import '../../deal/domain/use_cases/list_venue_deals.dart';
 import '../domain/use_cases/get_venue.dart';
 import '../domain/use_cases/list_venues.dart';
@@ -36,6 +37,20 @@ class _VenueListScreenState extends State<VenueListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('ParkWith'),
+        actions: [
+          IconButton(
+            key: const Key('cost-calculator-button'),
+            tooltip: '비용 계산기',
+            icon: const Icon(Icons.calculate_outlined),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(
+                  builder: (context) => const CostCalculatorScreen(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<Venue>>(
         future: _venuesFuture,

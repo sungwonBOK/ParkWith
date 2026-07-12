@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:parkwith_mobile/features/cost_calculator/presentation/cost_calculator_screen.dart';
 import 'package:parkwith_mobile/features/deal/domain/deal.dart';
 import 'package:parkwith_mobile/features/deal/domain/deal_repository.dart';
 import 'package:parkwith_mobile/features/deal/domain/use_cases/list_venue_deals.dart';
@@ -91,6 +92,26 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('Updated 2026-06-30'), findsOneWidget);
+  });
+
+  testWidgets('opens the cost calculator from the app bar', (tester) async {
+    const repository = _FakeVenueRepository();
+
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: VenueListScreen(
+          listVenues: ListVenues(repository),
+          getVenue: GetVenue(repository),
+          listVenueDeals: ListVenueDeals(_FakeDealRepository()),
+        ),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('cost-calculator-button')));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(CostCalculatorScreen), findsOneWidget);
   });
 }
 
