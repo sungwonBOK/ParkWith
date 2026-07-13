@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:parkwith_mobile/features/checklist/presentation/visit_checklist_screen.dart';
 import 'package:parkwith_mobile/features/cost_calculator/presentation/cost_calculator_screen.dart';
 import 'package:parkwith_mobile/features/deal/domain/deal.dart';
 import 'package:parkwith_mobile/features/deal/domain/deal_repository.dart';
@@ -92,6 +93,63 @@ void main() {
       findsOneWidget,
     );
     expect(find.text('Updated 2026-06-30'), findsOneWidget);
+  });
+
+  testWidgets('opens the visit checklist from venue detail', (tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: VenueDetailScreen(
+          venueId: 'everland',
+          getVenue: GetVenue(_FakeVenueRepository()),
+          listVenueDeals: ListVenueDeals(_FakeDealRepository()),
+        ),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('visit-checklist-button')));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(VisitChecklistScreen), findsOneWidget);
+    expect(find.text('Everland 방문 준비'), findsOneWidget);
+    expect(find.text('준비 완료 0/5'), findsOneWidget);
+  });
+
+  testWidgets('resets the visit checklist after its route is closed', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+        home: VenueDetailScreen(
+          venueId: 'everland',
+          getVenue: GetVenue(_FakeVenueRepository()),
+          listVenueDeals: ListVenueDeals(_FakeDealRepository()),
+        ),
+      ),
+    );
+
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('visit-checklist-button')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('편한 신발'));
+    await tester.pump();
+
+    expect(find.text('준비 완료 1/5'), findsOneWidget);
+
+    await tester.pageBack();
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('visit-checklist-button')));
+    await tester.pumpAndSettle();
+
+    expect(find.text('준비 완료 0/5'), findsOneWidget);
+    expect(
+      tester
+          .widget<CheckboxListTile>(
+            find.byKey(const Key('checklist-item-comfortable-shoes')),
+          )
+          .value,
+      isFalse,
+    );
   });
 
   testWidgets('opens the cost calculator from the app bar', (tester) async {

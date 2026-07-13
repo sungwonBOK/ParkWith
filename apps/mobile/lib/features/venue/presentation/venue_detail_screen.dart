@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../checklist/presentation/visit_checklist_screen.dart';
 import '../../deal/domain/deal.dart';
 import '../../deal/domain/use_cases/list_venue_deals.dart';
 import '../domain/use_cases/get_venue.dart';
@@ -69,6 +70,22 @@ class _VenueDetailScreenState extends State<VenueDetailScreen> {
               Text('${venue.categoryLabel} - ${venue.region}'),
               const SizedBox(height: 16),
               Text(venue.description),
+              const SizedBox(height: 16),
+              OutlinedButton.icon(
+                key: const Key('visit-checklist-button'),
+                icon: const Icon(Icons.checklist),
+                label: const Text('방문 준비 체크리스트'),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (context) => VisitChecklistScreen(
+                        venueName: venue.name,
+                        category: venue.category,
+                      ),
+                    ),
+                  );
+                },
+              ),
               const SizedBox(height: 24),
               Text(
                 'Deals',
